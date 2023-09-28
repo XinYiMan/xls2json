@@ -32,7 +32,10 @@ Application.UseSSL := Application_with_ssl;
 Application.LegacyRouting := True;
 Application.HTTPhandler.HTTPServer.CertificateData.Certificate.FileName := CertificatePath;
 Application.HTTPhandler.HTTPServer.CertificateData.PrivateKey.FileName := PrivateKeyPath;
-writeln('https://localhost:', Application.Port, '/TFPWebModule1/index');
+if not Application_with_ssl then
+   writeln('http://localhost:', Application.Port, '/TFPWebModule1/index')
+else
+    writeln('https://localhost:', Application.Port, '/TFPWebModule1/index');
 writeln('Configuration from ' + application_path + 'config.ini file');
 writeln(Application.Title);
 Application.Initialize;
