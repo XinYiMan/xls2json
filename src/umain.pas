@@ -5,7 +5,7 @@ unit uMain;
 interface
 
 uses
-  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, fpspreadsheet, fpstypes, fpsallformats;
+  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, fpspreadsheet, fpstypes, fpsallformats, fpjson;
 
 type
 
@@ -21,7 +21,8 @@ type
       AResponse: TResponse; var Handled: Boolean);
   private
          function IsValidLogin(username : string; password : string; var id_user : string; var directory : string) : boolean;
-         function ConvertXLS2Json(filename : string) : string;
+         function ConvertXLS2Json(filename: string; var jArray: TJSONArray;
+           var description: string): boolean;
   public
 
   end;
@@ -34,7 +35,7 @@ const
 
 implementation
 uses
-    ujwtabstract, fpjson, uExtended_fphttpapp;
+    ujwtabstract, uExtended_fphttpapp;
 
 {$R *.lfm}
 
@@ -58,6 +59,7 @@ var
    code                 : integer;
    description          : string;
    ret                  : string;
+   jArray               : TJSONArray;
 begin
      jwt      := ARequest.QueryFields.Values['jwt'];
      ret      := '';
@@ -75,9 +77,15 @@ begin
 
           if (FileExists(Location + DIR_FILES + System.DirectorySeparator + directory + System.DirectorySeparator + action + '.xls')) then
           begin
-               ret          := ConvertXLS2Json(Location + DIR_FILES + System.DirectorySeparator + directory + System.DirectorySeparator + action + '.xls');
-               code         := 0;
-               description  := '';
+               if ConvertXLS2Json(Location + DIR_FILES + System.DirectorySeparator + directory + System.DirectorySeparator + action + '.xls', jArray, description)  then
+               begin
+                    code         := 0;
+                    description  := '';
+               end else begin
+                  code         := 3;
+                  jwt          := '';
+                  ret          := '';
+               end;
           end else begin
               code         := 2;
               description  := 'Invalid action';
@@ -95,11 +103,14 @@ begin
      jObject:=TJSONObject.Create(['code',code,
                  'description',description,
                  'version',version,
-                 'result', ret,
+                 'result', jArray,
                  'jwt',jwt]);
      jData := jObject;
      AResponse.Contents.Text := jData.FormatJSON;
-     FreeAndNil(jData);
+     if Assigned(jData) then
+        FreeAndNil(jData);
+     if Assigned(jData) then
+        FreeAndNil(jArray);
      Handled := true;
 end;
 
@@ -160,7 +171,7 @@ var
 begin
      if ExistsValidUser(username, password, id_user, directory) then
      begin
-          ret       := true;
+          ret := true;
           if (trim(directory) = '') then
              directory := trim(DIR_DEFAULT);
      end else begin
@@ -171,19 +182,18 @@ begin
      result := ret;
 end;
 
-function TFPWebModule1.ConvertXLS2Json(filename: string): string;
+function TFPWebModule1.ConvertXLS2Json(filename: string; var jArray : TJSONArray; var description : string): boolean;
 var
-   ret         : string;
+   ret         : boolean;
    MyWorkbook  : TsWorkbook;
    MyWorksheet : TsWorksheet;
    col, row    : Cardinal;
    cell        : PCell;
    jObject     : TJSONObject;
-   jArray      : TJSONArray;
    cellname    : string;
    cellvalue   : string;
 begin
-     ret        := '';
+     ret        := false;
      MyWorkbook := TsWorkbook.Create;
      try
         try
@@ -203,16 +213,16 @@ begin
                    begin
                         cell := MyWorksheet.FindCell(0, col);
                         cellname := trim(MyWorksheet.ReadAsUTF8Text(cell));
+                        cellname := StringReplace(StringReplace(cellname,#13,'', [rfReplaceAll]),#10,'', [rfReplaceAll]);
                         cell := MyWorksheet.FindCell(row, col);
                         cellvalue := MyWorksheet.ReadAsUTF8Text(cell);
-                        jObject.Add(cellname, cellvalue);
+                        cellvalue := StringReplace(StringReplace(cellvalue,#13,'', [rfReplaceAll]),#10,'', [rfReplaceAll]);
+                        jObject.Strings[cellname] := cellvalue;
                    end;
                    jArray.Add(jObject);
-
                 end;
            end;
-           ret   := jArray.AsJSON;
-           FreeAndNil(jArray);
+           ret   := true;
 
         finally
                if Assigned(MyWorkbook) then
@@ -222,7 +232,7 @@ begin
            on E: Exception do
            begin
 
-              WriteLn(E.Message);
+              description := E.Message;
 
            end;
      end;

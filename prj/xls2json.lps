@@ -8,10 +8,9 @@
       <Unit>
         <Filename Value="xls2json.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <CursorPos X="17" Y="38"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -21,9 +20,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uMain"/>
-        <TopLine Value="40"/>
-        <CursorPos X="81" Y="126"/>
-        <UsageCount Value="26"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="209"/>
+        <CursorPos X="124" Y="219"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -34,7 +34,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="109"/>
         <CursorPos X="17" Y="115"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
       </Unit>
       <Unit>
         <Filename Value="..\src\ujwtabstract.pas"/>
@@ -43,7 +43,7 @@
         <EditorIndex Value="1"/>
         <TopLine Value="64"/>
         <CursorPos X="19" Y="86"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -53,7 +53,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="28"/>
         <CursorPos X="161" Y="60"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -108,38 +108,6 @@
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="xls2json.lpr"/>
-        <Caret Line="10" Column="20" TopLine="5"/>
-      </Position>
-      <Position>
-        <Filename Value="..\src\umain.pas"/>
-        <Caret Line="62" Column="21" TopLine="49"/>
-      </Position>
-      <Position>
-        <Filename Value="..\src\umain.pas"/>
-        <Caret Line="78" Column="46" TopLine="62"/>
-      </Position>
-      <Position>
-        <Filename Value="..\src\umain.pas"/>
-        <Caret Line="64" Column="25" TopLine="52"/>
-      </Position>
-      <Position>
-        <Filename Value="..\src\umain.pas"/>
-        <Caret Line="35" Column="46" TopLine="16"/>
-      </Position>
-      <Position>
-        <Filename Value="xls2json.lpr"/>
-        <Caret Line="10" Column="36"/>
-      </Position>
-      <Position>
-        <Filename Value="xls2json.lpr"/>
-        <Caret Line="9" Column="27"/>
-      </Position>
-      <Position>
-        <Filename Value="..\src\umain.pas"/>
-        <Caret Line="11" Column="49"/>
-      </Position>
       <Position>
         <Filename Value="xls2json.lpr"/>
         <Caret Line="23" Column="49"/>
@@ -227,6 +195,38 @@
       <Position>
         <Filename Value="..\src\umain.pas"/>
         <Caret Line="23" TopLine="17"/>
+      </Position>
+      <Position>
+        <Filename Value="..\src\umain.pas"/>
+        <Caret Line="174" Column="29" TopLine="155"/>
+      </Position>
+      <Position>
+        <Filename Value="..\src\umain.pas"/>
+        <Caret Line="24" Column="69"/>
+      </Position>
+      <Position>
+        <Filename Value="..\src\umain.pas"/>
+        <Caret Line="181" Column="31" TopLine="177"/>
+      </Position>
+      <Position>
+        <Filename Value="..\src\umain.pas"/>
+        <Caret Line="24" Column="32"/>
+      </Position>
+      <Position>
+        <Filename Value="..\src\umain.pas"/>
+        <Caret Line="106" Column="34" TopLine="60"/>
+      </Position>
+      <Position>
+        <Filename Value="..\src\umain.pas"/>
+        <Caret Line="8" Column="87"/>
+      </Position>
+      <Position>
+        <Filename Value="..\src\umain.pas"/>
+        <Caret Line="79" Column="164" TopLine="66"/>
+      </Position>
+      <Position>
+        <Filename Value="..\src\umain.pas"/>
+        <Caret Line="213" Column="122" TopLine="191"/>
       </Position>
     </JumpHistory>
     <RunParams>
